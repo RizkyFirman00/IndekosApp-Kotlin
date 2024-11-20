@@ -1,6 +1,7 @@
 package com.example.indekos.ui.home
 
 import android.app.Application
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,20 @@ class HomeViewModel(application: Application) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+
+    private val _userLocation = MutableStateFlow<Location?>(null)
+    val userLocation: StateFlow<Location?> = _userLocation
+
+    private val _hasLocationPermission = MutableStateFlow(false)
+    val hasLocationPermission: StateFlow<Boolean> = _hasLocationPermission
+
+    fun updateLocation(location: Location) {
+        _userLocation.value = location
+    }
+
+    fun updateLocationPermissionStatus(hasPermission: Boolean) {
+        _hasLocationPermission.value = hasPermission
+    }
 
     fun getAllIndekos() {
         viewModelScope.launch {

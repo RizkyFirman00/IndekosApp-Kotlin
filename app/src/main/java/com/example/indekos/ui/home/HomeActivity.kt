@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.indekos.databinding.ActivityMainBinding
 import com.example.indekos.model.Indekos
@@ -60,18 +61,15 @@ class HomeActivity : AppCompatActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest = LocationRequest.create()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-            .setInterval(1000) // Interval pembaruan lokasi dalam milidetik
+            .setInterval(1000)
 
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 if (locationResult.locations.isNotEmpty()) {
                     val lastLocation = locationResult.lastLocation
-                    val lat = lastLocation?.latitude
-                    val long = lastLocation?.longitude
-                    latUser = lat
-                    longUser = long
-                    Log.d("HomeActivity", "User Location: $latUser, $longUser")
-                    updateUserLocation()
+                    lastLocation?.let { location ->
+                        viewModel.updateLocation(location)
+                    }
                 }
             }
         }
@@ -87,13 +85,15 @@ class HomeActivity : AppCompatActivity() {
                 stopLocationUpdates()
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Tidak dapat mengambil lokasi pengguna", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Tidak dapat mengambil lokasi pengguna", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
         binding.btnMyLocation.setOnClickListener {
             startLocationUpdates()
-            Toast.makeText(this, "Lokasi Anda diperbarui : Lokasi terkini", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Lokasi Anda diperbarui : Lokasi terkini", Toast.LENGTH_SHORT)
+                .show()
         }
 
         adapter = IndekosHomeAdapter(
@@ -107,13 +107,40 @@ class HomeActivity : AppCompatActivity() {
         viewModel.getAllIndekos()
         viewModel.indekosList.observe(this) { indekosList ->
             if (indekosList.isNullOrEmpty()) {
-                Toast.makeText(this, "Tidak ada data indekos", Toast.LENGTH_SHORT).show()
-                binding.progressBar2.visibility = View.VISIBLE
-            } else {
+                binding.tvNoData.visibility = View.VISIBLE
                 binding.progressBar2.visibility = View.GONE
-                adapter.submitList(indekosList)
+            } else {
+                binding.tvNoData.visibility = View.GONE
+                binding.progressBar2.visibility = View.GONE
             }
         }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.isLoading.collect { loading ->
+                binding.progressBar2.visibility = if (loading) View.VISIBLE else View.GONE
+                binding.tvNoData.visibility = if (loading) View.VISIBLE else View.GONE
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.userLocation.collect { location ->
+                location?.let {
+                    latUser = it.latitude
+                    longUser = it.longitude
+                    Log.d("HomeActivity", "User Location: $latUser, $longUser")
+                    updateIndekosList()
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.hasLocationPermission.collect { hasPermission ->
+                if (!hasPermission) {
+                    Toast.makeText(this@HomeActivity, "Izin lokasi tidak diberikan", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     }
 
     override fun onPause() {
@@ -136,23 +163,14 @@ class HomeActivity : AppCompatActivity() {
                 locationCallback,
                 null
             )
+        } else {
+            viewModel.updateLocationPermissionStatus(false)
         }
     }
+
 
     private fun stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
-    }
-
-    private fun updateUserLocation() {
-        latUser?.let { lat ->
-            longUser?.let { long ->
-                userLocation = Location("User")
-                userLocation.latitude = lat
-                userLocation.longitude = long
-                Log.d("HomeActivity", "updateUserLocation: $userLocation")
-                updateIndekosList()
-            }
-        }
     }
 
     fun Indekos.calculateDistance(latUser: Double, longUser: Double): String {
@@ -219,18 +237,14 @@ class HomeActivity : AppCompatActivity() {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        when {
-            permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
-                getAccessLocation()
-            }
+        val hasFineLocation = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+        val hasCoarseLocation = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
 
-            permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
-                getAccessLocation()
-            }
-
-            else -> {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
+        if (hasFineLocation || hasCoarseLocation) {
+            viewModel.updateLocationPermissionStatus(true)
+            startLocationUpdates()
+        } else {
+            viewModel.updateLocationPermissionStatus(false)
         }
     }
 }

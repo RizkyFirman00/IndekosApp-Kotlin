@@ -17,7 +17,6 @@ class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        supportActionBar?.hide()
 
         binding.btnGettingStarted.setOnClickListener {
             Intent(this, HomeActivity::class.java).also {

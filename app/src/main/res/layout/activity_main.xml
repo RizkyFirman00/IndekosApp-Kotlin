@@ -116,29 +116,29 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/purple"
             android:indeterminateTintMode="src_atop"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_noData"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:elevation="10dp"-->
-<!--            android:fontFamily="@font/poppins_bold"-->
-<!--            android:gravity="center"-->
-<!--            android:text="D A T A \n K O S O N G"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/purple"-->
-<!--            android:textSize="24sp"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <TextView
+            android:id="@+id/tv_noData"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:elevation="10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:text="D A T A \n K O S O N G"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="24sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
