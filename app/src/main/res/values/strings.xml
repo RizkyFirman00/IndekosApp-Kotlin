@@ -5,4 +5,5 @@
     <string name="permission_not_granted">Permission Not Granted</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="koma">,</string>
+    <string name="select_photo_method">Silahkan pilih metode:</string>
 </resources>

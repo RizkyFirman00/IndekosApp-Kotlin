@@ -19,6 +19,8 @@ import com.example.indekos.databinding.ActivityMapsBinding
 import com.example.indekos.databinding.DialogSetRadiusBinding
 import com.example.indekos.model.Indekos
 import com.example.indekos.ui.detail.DetailActivity
+import com.example.indekos.ui.home.HomeActivity
+import com.example.indekos.ui.splash.SplashScreenActivity
 import com.example.indekos.util.ViewModelFactory
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -43,6 +45,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private var radiusValue: Double = 3000.0
     private val viewModel by viewModels<MapsViewModel> {
         ViewModelFactory.getInstance(application)
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

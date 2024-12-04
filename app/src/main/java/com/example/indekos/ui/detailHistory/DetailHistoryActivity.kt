@@ -88,6 +88,43 @@ class DetailHistoryActivity : AppCompatActivity() {
         finish()
         }
 
+        // Request location permissions if not granted
+        if (!allPermissionsGranted()) {
+            ActivityCompat.requestPermissions(
+                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+            )
+        }
+
+        // Get location
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        getMyLocation()
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ), REQUEST_CODE_PERMISSIONS
+            )
+        } else {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    latIndekos = location.latitude
+                    longIndekos = location.longitude
+                } else if (latIndekos == 0.0 && longIndekos == 0.0) {
+                    Toast.makeText(
+                        this,
+                        "Location not found",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
         binding.btnUpdateData.setOnClickListener {
             val namaIndekos = binding.etNamaIndekos.text.toString()
             val hargaPerBulan = binding.etHargaPerBulan.text.toString()
@@ -235,43 +272,6 @@ class DetailHistoryActivity : AppCompatActivity() {
                 return stringBuilder.toString()
             }
         })
-
-        // Request location permissions if not granted
-        if (!allPermissionsGranted()) {
-            ActivityCompat.requestPermissions(
-                this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
-            )
-        }
-
-        // Get location
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getMyLocation()
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this, arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ), REQUEST_CODE_PERMISSIONS
-            )
-        } else {
-            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                if (location != null) {
-                    latIndekos = location.latitude
-                    longIndekos = location.longitude
-                } else if (latIndekos == 0.0 && longIndekos == 0.0) {
-                    Toast.makeText(
-                        this,
-                        "Location not found",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
     }
 
     // Rv Photo Function

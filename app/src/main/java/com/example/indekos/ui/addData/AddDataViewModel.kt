@@ -39,6 +39,6 @@ class AddDataViewModel(application: Application): ViewModel() {
         )
     }
 
-    fun getUsernamebyId(userId: Int) = userRepository.getUserById(userId)
+    fun getUserbyId(userId: Int) = userRepository.getUserById(userId)
 
 }

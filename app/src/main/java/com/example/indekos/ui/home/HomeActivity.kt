@@ -57,11 +57,16 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        // Get permission location
+        getAccessLocation()
+
+        // Get lokasi terkini user
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         locationRequest = LocationRequest.create()
             .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
             .setInterval(1000) // Interval pembaruan lokasi dalam milidetik
 
+        // Callback untuk menerima hasil lokasi
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 if (locationResult.locations.isNotEmpty()) {
@@ -75,8 +80,6 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-
-        getAccessLocation()
 
         binding.btnOtherLocation.setOnClickListener {
             if (latUser != null && longUser != null) {
@@ -102,11 +105,13 @@ class HomeActivity : AppCompatActivity() {
                 Log.d("HomeActivity", "IndekosId: $it")
             }
         )
+
         binding.rvKost.adapter = adapter
         binding.rvKost.layoutManager = LinearLayoutManager(this)
         viewModel.getAllIndekos()
         viewModel.indekosList.observe(this) { indekosList ->
             if (indekosList.isNullOrEmpty()) {
+                adapter.submitList(emptyList())
                 Toast.makeText(this, "Tidak ada data indekos", Toast.LENGTH_SHORT).show()
                 binding.progressBar2.visibility = View.VISIBLE
             } else {

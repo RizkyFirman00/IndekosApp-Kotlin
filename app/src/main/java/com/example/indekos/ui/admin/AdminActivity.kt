@@ -34,7 +34,6 @@ class AdminActivity : AppCompatActivity() {
         }
 
         setupItemTouchHelper()
-
         adapter = IndekosAdminAdapter(
             onItemClick = {
                 navigateToDetailHistoryActivity(it)

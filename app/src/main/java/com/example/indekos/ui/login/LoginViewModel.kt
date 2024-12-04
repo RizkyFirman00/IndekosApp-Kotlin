@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.indekos.repository.UserRepository
 
 class LoginViewModel(application: Application) : ViewModel() {
-    private val userRepository = UserRepository(application)
+    var userRepository = UserRepository(application)
 
     suspend fun checkCredentials(username: String, password: String): Boolean {
         val user = userRepository.getUserByUsername(username)
