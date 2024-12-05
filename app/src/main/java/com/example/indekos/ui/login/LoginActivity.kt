@@ -13,7 +13,6 @@ import com.example.indekos.ui.admin.AdminActivity
 import com.example.indekos.ui.register.RegisterActivity
 import com.example.indekos.ui.splash.SplashScreenActivity
 import com.example.indekos.util.Preferences
-import com.example.indekos.util.ViewModelFactory
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
@@ -25,9 +24,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
-    private val viewModel by viewModels<LoginViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

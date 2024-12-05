@@ -3,12 +3,17 @@ package com.example.indekos.ui.detailHistory
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.indekos.database.IndekosDao
 import com.example.indekos.model.Indekos
+import com.example.indekos.repository.IndekosRepository
 import com.example.indekos.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailHistoryViewModel(application: Application): ViewModel() {
-    private val userRepository = UserRepository(application)
+@HiltViewModel
+class DetailHistoryViewModel @Inject constructor(private val indekosRepository: IndekosRepository) :
+    ViewModel() {
 
     fun updateIndekos(
         indekosId: Int,
@@ -26,7 +31,7 @@ class DetailHistoryViewModel(application: Application): ViewModel() {
         photoUrl: List<String>? = null,
         photoBannerUrl: String? = null
     ) {
-        userRepository.updateIndekos(
+        indekosRepository.updateIndekos(
             indekosId,
             userId,
             namaIndekos,
@@ -44,11 +49,11 @@ class DetailHistoryViewModel(application: Application): ViewModel() {
         )
     }
 
-    fun getIndekosById(indekosId: Int) = userRepository.getIndekosById(indekosId)
+    fun getIndekosById(indekosId: Int) = indekosRepository.getIndekosById(indekosId)
 
     fun deleteIndekos(indekos: Indekos) {
         viewModelScope.launch {
-            userRepository.deleteIndekos(indekos)
+            indekosRepository.deleteIndekos(indekos)
         }
     }
 }

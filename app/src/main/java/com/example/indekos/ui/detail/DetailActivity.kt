@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.indekos.databinding.ActivityDetailBinding
 import com.example.indekos.ui.home.HomeActivity
-import com.example.indekos.util.ViewModelFactory
 import com.example.indekos.util.adapter.PhotosAdapterDetail
 
 class DetailActivity : AppCompatActivity() {
@@ -24,9 +23,7 @@ class DetailActivity : AppCompatActivity() {
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var label: String = ""
-    private val viewModel by viewModels<DetailViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: DetailViewModel by viewModels()
 
     private var bannerHeight = 0
 

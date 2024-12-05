@@ -12,16 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.indekos.databinding.ActivityAdminBinding
 import com.example.indekos.ui.detailHistory.DetailHistoryActivity
 import com.example.indekos.ui.login.LoginActivity
-import com.example.indekos.util.ViewModelFactory
 import com.example.indekos.util.adapter.IndekosAdminAdapter
 
 class AdminActivity : AppCompatActivity() {
     private val binding by lazy { ActivityAdminBinding.inflate(layoutInflater) }
     private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var adapter: IndekosAdminAdapter
-    private val viewModel by viewModels<AdminViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: AdminViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

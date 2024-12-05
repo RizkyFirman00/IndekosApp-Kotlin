@@ -9,7 +9,6 @@ import com.example.indekos.databinding.ActivityHistoryBinding
 import com.example.indekos.ui.detailHistory.DetailHistoryActivity
 import com.example.indekos.ui.addData.AddDataActivity
 import com.example.indekos.util.Preferences
-import com.example.indekos.util.ViewModelFactory
 import com.example.indekos.util.adapter.IndekosHistoryAdapter
 
 class HistoryActivity : AppCompatActivity() {
@@ -24,9 +23,7 @@ class HistoryActivity : AppCompatActivity() {
     private val userId by lazy { Preferences.getUserId(this@HistoryActivity) }
     private val binding by lazy { ActivityHistoryBinding.inflate(layoutInflater) }
     private lateinit var adapter: IndekosHistoryAdapter
-    private val viewModel by viewModels<HistoryViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: HistoryViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -40,7 +37,7 @@ class HistoryActivity : AppCompatActivity() {
         binding.rvDataHistory.adapter = adapter
         binding.rvDataHistory.layoutManager = LinearLayoutManager(this)
 
-        userId?.let { viewModel.getByUserId(it.toInt()) }
+        userId?.let { viewModel.getIndekosByUserId(it.toInt()) }
         viewModel.indekosList.observe(this) { indekosList ->
             if (indekosList.isNullOrEmpty()) {
                 binding.progressBar2.visibility = android.view.View.GONE

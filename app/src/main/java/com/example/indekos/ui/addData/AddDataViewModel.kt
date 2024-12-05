@@ -2,10 +2,19 @@ package com.example.indekos.ui.addData
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
+import com.example.indekos.database.IndekosDao
+import com.example.indekos.database.UserDao
+import com.example.indekos.repository.IndekosRepository
 import com.example.indekos.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class AddDataViewModel(application: Application): ViewModel() {
-    private val userRepository = UserRepository(application)
+@HiltViewModel
+class AddDataViewModel @Inject constructor(
+    private val indekosRepository: IndekosRepository,
+    private val userRepository: UserRepository
+) :
+    ViewModel() {
 
     fun insertIndekos(
         userId: Int,
@@ -22,7 +31,7 @@ class AddDataViewModel(application: Application): ViewModel() {
         photoUrl: List<String>? = null,
         photoBannerUrl: String? = null
     ) {
-        userRepository.insertIndekos(
+        indekosRepository.insertIndekos(
             userId,
             namaIndekos,
             harga,

@@ -25,7 +25,6 @@ import com.example.indekos.R
 import com.example.indekos.databinding.ActivityDetailHistoryBinding
 import com.example.indekos.ui.history.HistoryActivity
 import com.example.indekos.util.Preferences
-import com.example.indekos.util.ViewModelFactory
 import com.example.indekos.util.adapter.PhotosAdapterHistory
 import com.example.indekos.util.createCustomTempFile
 import com.example.indekos.util.uriToFile
@@ -37,9 +36,7 @@ class DetailHistoryActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val binding by lazy { ActivityDetailHistoryBinding.inflate(layoutInflater) }
-    private val viewModel by viewModels<DetailHistoryViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: DetailHistoryViewModel by viewModels()
     private var latIndekos: Double = 0.0
     private var longIndekos: Double = 0.0
     private var file: File? = null

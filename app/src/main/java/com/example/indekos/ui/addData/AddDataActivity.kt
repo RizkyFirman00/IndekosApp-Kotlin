@@ -31,12 +31,12 @@ import com.example.indekos.ui.home.HomeActivity
 import com.example.indekos.ui.login.LoginActivity
 import com.example.indekos.ui.splash.SplashScreenActivity
 import com.example.indekos.util.Preferences
-import com.example.indekos.util.ViewModelFactory
 import com.example.indekos.util.adapter.PhotosAdapterAdd
 import com.example.indekos.util.createCustomTempFile
 import com.example.indekos.util.uriToFile
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -51,9 +51,7 @@ class AddDataActivity : AppCompatActivity() {
     private lateinit var photoPath: String
     private lateinit var photoAdapter: PhotosAdapterAdd
     private val photoList = mutableListOf<String>()
-    private val viewModel by viewModels<AddDataViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: AddDataViewModel by viewModels()
     private val userId by lazy { Preferences.getUserId(this@AddDataActivity) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

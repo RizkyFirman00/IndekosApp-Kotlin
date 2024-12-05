@@ -17,11 +17,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.indekos.R
 import com.example.indekos.databinding.ActivityMapsBinding
 import com.example.indekos.databinding.DialogSetRadiusBinding
-import com.example.indekos.model.Indekos
 import com.example.indekos.ui.detail.DetailActivity
 import com.example.indekos.ui.home.HomeActivity
-import com.example.indekos.ui.splash.SplashScreenActivity
-import com.example.indekos.util.ViewModelFactory
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -43,9 +40,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val markerList: MutableList<Marker> = mutableListOf()
     private var userLocation = LatLng(0.0, 0.0)
     private var radiusValue: Double = 3000.0
-    private val viewModel by viewModels<MapsViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: MapsViewModel by viewModels()
 
     override fun onBackPressed() {
         val intent = Intent(this, HomeActivity::class.java)

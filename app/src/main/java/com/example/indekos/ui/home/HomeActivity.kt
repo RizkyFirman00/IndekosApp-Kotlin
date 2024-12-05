@@ -19,7 +19,6 @@ import com.example.indekos.model.Indekos
 import com.example.indekos.ui.detail.DetailActivity
 import com.example.indekos.ui.map.MapsActivity
 import com.example.indekos.ui.splash.SplashScreenActivity
-import com.example.indekos.util.ViewModelFactory
 import com.example.indekos.util.adapter.IndekosHomeAdapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -48,9 +47,7 @@ class HomeActivity : AppCompatActivity() {
     private var latUser: Double? = null
     private var longUser: Double? = null
     private lateinit var adapter: IndekosHomeAdapter
-    private val viewModel by viewModels<HomeViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

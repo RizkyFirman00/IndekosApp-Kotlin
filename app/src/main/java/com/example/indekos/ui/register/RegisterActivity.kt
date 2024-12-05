@@ -7,13 +7,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.indekos.databinding.ActivityRegisterBinding
 import com.example.indekos.ui.login.LoginActivity
-import com.example.indekos.util.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
-    private val viewModel by viewModels<RegisterViewModel> {
-        ViewModelFactory.getInstance(application)
-    }
+    private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
