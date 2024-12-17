@@ -7,13 +7,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.indekos.model.Users
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao {
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun registerUser(users: Users)
+
     @Query("SELECT * FROM users WHERE username = :username")
     suspend fun getUserByUsername(username: String): Users?
+
     @Query("SELECT * FROM users WHERE userId = :userId")
     fun getUserById(userId: Int): LiveData<Users>
 }

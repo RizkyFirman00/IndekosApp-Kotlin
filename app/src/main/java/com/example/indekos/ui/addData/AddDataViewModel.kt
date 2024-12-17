@@ -1,20 +1,19 @@
 package com.example.indekos.ui.addData
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.example.indekos.database.IndekosDao
-import com.example.indekos.database.UserDao
+import androidx.lifecycle.viewModelScope
+import com.example.indekos.model.Indekos
 import com.example.indekos.repository.IndekosRepository
 import com.example.indekos.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class AddDataViewModel @Inject constructor(
     private val indekosRepository: IndekosRepository,
     private val userRepository: UserRepository
-) :
-    ViewModel() {
+) : ViewModel() {
 
     fun insertIndekos(
         userId: Int,
@@ -31,23 +30,27 @@ class AddDataViewModel @Inject constructor(
         photoUrl: List<String>? = null,
         photoBannerUrl: String? = null
     ) {
-        indekosRepository.insertIndekos(
-            userId,
-            namaIndekos,
-            harga,
-            jumlah_bedroom,
-            jumlah_cupboard,
-            jumlah_kitchen,
-            latitde_indekos,
-            longitude_indekos,
-            alamat,
-            kota,
-            provinsi,
-            photoUrl,
-            photoBannerUrl
-        )
+        viewModelScope.launch {
+            indekosRepository.insertIndekos(
+                Indekos(
+                    0,
+                    userId,
+                    namaIndekos,
+                    harga,
+                    jumlah_bedroom,
+                    jumlah_cupboard,
+                    jumlah_kitchen,
+                    latitde_indekos,
+                    longitude_indekos,
+                    alamat,
+                    kota,
+                    provinsi,
+                    photoUrl,
+                    photoBannerUrl
+                )
+            )
+        }
     }
 
     fun getUserbyId(userId: Int) = userRepository.getUserById(userId)
-
 }

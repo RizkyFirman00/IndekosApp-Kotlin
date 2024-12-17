@@ -13,25 +13,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.lang.Thread.State
 import javax.inject.Inject
 
 @HiltViewModel
-class HistoryViewModel @Inject constructor(private val indekosRepository: IndekosRepository) : ViewModel() {
+class HistoryViewModel @Inject constructor(private val indekosRepository: IndekosRepository) :
+    ViewModel() {
 
-    private val _indekosList = MutableLiveData<List<Indekos>>()
-
-    val indekosList: LiveData<List<Indekos>> = _indekosList
+    private val _indekosList = MutableStateFlow<List<Indekos>>(emptyList())
+    val indekosList: StateFlow<List<Indekos>> = _indekosList
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun getIndekosByUserId(userId: Int) {
+    fun getListIndekosByUserId(userId: Int) {
         viewModelScope.launch {
             _isLoading.value = true
-            indekosRepository.getIndekosByUserId(userId)
-                .collect { indekos ->
-                    _indekosList.value = indekos
-                }
+            indekosRepository.getIndekosById(userId).observeForever { indekos ->
+                _indekosList.value = listOf(indekos)
+            }
             _isLoading.value = false
         }
     }

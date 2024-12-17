@@ -25,10 +25,6 @@ interface IndekosDao {
     @Query("SELECT * FROM indekos WHERE indekosId = :indekosId")
     fun getIndekosById(indekosId: Int): LiveData<Indekos>
 
-    // Fungsi RV di History Activity
-    @Query("SELECT * FROM indekos WHERE userId = :userId")
-    fun getIndekosByUserId(userId: Int): Flow<List<Indekos>>
-
     // Update data indekos di DetailHistoryActivity
     @Update
     fun updateIndekos(indekos: Indekos)

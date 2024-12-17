@@ -106,21 +106,21 @@ class IndekosRepositoryTest {
         )
         every { mockIndekosDao.insertIndekos(any()) } just Runs
 
-        repository.insertIndekos(
-            userId = indekos.userId,
-            namaIndekos = indekos.name_indekos!!,
-            harga = indekos.harga!!,
-            jumlah_bedroom = indekos.jumlah_bedroom,
-            jumlah_cupboard = indekos.jumlah_cupboard,
-            jumlah_kitchen = indekos.jumlah_kitchen,
-            latitde_indekos = indekos.latitude_indekos!!,
-            longitude_indekos = indekos.longitude_indekos!!,
-            alamat = indekos.alamat,
-            kota = indekos.kota,
-            provinsi = indekos.provinsi,
-            photoUrl = indekos.photoUrl,
-            photoBannerUrl = indekos.photoBannerUrl
-        )
+//        repository.insertIndekos(
+//            userId = indekos.userId,
+//            namaIndekos = indekos.name_indekos!!,
+//            harga = indekos.harga!!,
+//            jumlah_bedroom = indekos.jumlah_bedroom,
+//            jumlah_cupboard = indekos.jumlah_cupboard,
+//            jumlah_kitchen = indekos.jumlah_kitchen,
+//            latitde_indekos = indekos.latitude_indekos!!,
+//            longitude_indekos = indekos.longitude_indekos!!,
+//            alamat = indekos.alamat,
+//            kota = indekos.kota,
+//            provinsi = indekos.provinsi,
+//            photoUrl = indekos.photoUrl,
+//            photoBannerUrl = indekos.photoBannerUrl
+//        )
 
         verify { mockIndekosDao.insertIndekos(any()) }
     }

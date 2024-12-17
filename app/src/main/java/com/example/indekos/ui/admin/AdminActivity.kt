@@ -13,7 +13,9 @@ import com.example.indekos.databinding.ActivityAdminBinding
 import com.example.indekos.ui.detailHistory.DetailHistoryActivity
 import com.example.indekos.ui.login.LoginActivity
 import com.example.indekos.util.adapter.IndekosAdminAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AdminActivity : AppCompatActivity() {
     private val binding by lazy { ActivityAdminBinding.inflate(layoutInflater) }
     private lateinit var itemTouchHelper: ItemTouchHelper

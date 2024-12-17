@@ -7,7 +7,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.indekos.databinding.ActivityRegisterBinding
 import com.example.indekos.ui.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
     private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
     private val viewModel: RegisterViewModel by viewModels()

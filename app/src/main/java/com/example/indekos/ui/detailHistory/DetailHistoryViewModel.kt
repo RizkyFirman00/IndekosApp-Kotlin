@@ -31,22 +31,26 @@ class DetailHistoryViewModel @Inject constructor(private val indekosRepository: 
         photoUrl: List<String>? = null,
         photoBannerUrl: String? = null
     ) {
-        indekosRepository.updateIndekos(
-            indekosId,
-            userId,
-            namaIndekos,
-            harga,
-            jumlah_bedroom,
-            jumlah_cupboard,
-            jumlah_kitchen,
-            latitde_indekos,
-            longitude_indekos,
-            alamat,
-            kota,
-            provinsi,
-            photoUrl,
-            photoBannerUrl
-        )
+        viewModelScope.launch {
+            indekosRepository.updateIndekos(
+                Indekos(
+                    indekosId,
+                    userId,
+                    namaIndekos,
+                    harga,
+                    jumlah_bedroom,
+                    jumlah_cupboard,
+                    jumlah_kitchen,
+                    latitde_indekos,
+                    longitude_indekos,
+                    alamat,
+                    kota,
+                    provinsi,
+                    photoUrl,
+                    photoBannerUrl
+                )
+            )
+        }
     }
 
     fun getIndekosById(indekosId: Int) = indekosRepository.getIndekosById(indekosId)

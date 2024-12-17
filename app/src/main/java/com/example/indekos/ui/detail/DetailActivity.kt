@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide
 import com.example.indekos.databinding.ActivityDetailBinding
 import com.example.indekos.ui.home.HomeActivity
 import com.example.indekos.util.adapter.PhotosAdapterDetail
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
     private val binding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
     private lateinit var photoAdapter: PhotosAdapterDetail

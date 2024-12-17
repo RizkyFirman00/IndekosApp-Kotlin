@@ -25,12 +25,14 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
@@ -87,13 +89,15 @@ class HomeActivity : AppCompatActivity() {
                 stopLocationUpdates()
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Tidak dapat mengambil lokasi pengguna", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Tidak dapat mengambil lokasi pengguna", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
         binding.btnMyLocation.setOnClickListener {
             startLocationUpdates()
-            Toast.makeText(this, "Lokasi Anda diperbarui : Lokasi terkini", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Lokasi Anda diperbarui : Lokasi terkini", Toast.LENGTH_SHORT)
+                .show()
         }
 
         adapter = IndekosHomeAdapter(
@@ -110,9 +114,7 @@ class HomeActivity : AppCompatActivity() {
             if (indekosList.isNullOrEmpty()) {
                 adapter.submitList(emptyList())
                 Toast.makeText(this, "Tidak ada data indekos", Toast.LENGTH_SHORT).show()
-                binding.progressBar2.visibility = View.VISIBLE
             } else {
-                binding.progressBar2.visibility = View.GONE
                 adapter.submitList(indekosList)
             }
         }
@@ -133,11 +135,14 @@ class HomeActivity : AppCompatActivity() {
                 this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
+            showLoading()
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,
                 null
             )
+        } else {
+            hideLoading()
         }
     }
 
@@ -153,6 +158,7 @@ class HomeActivity : AppCompatActivity() {
                 userLocation.longitude = long
                 Log.d("HomeActivity", "updateUserLocation: $userLocation")
                 updateIndekosList()
+                hideLoading()
             }
         }
     }
@@ -234,5 +240,19 @@ class HomeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun showLoading() {
+        binding.progressBar2.visibility = View.VISIBLE
+        binding.overlay.visibility = View.VISIBLE
+        Toast.makeText(this, "Tunggu ya, aplikasi sedang mengambil lokasi kamu", Toast.LENGTH_SHORT)
+            .show()
+        binding.overlay.isClickable = true // Block user interaction
+    }
+
+    private fun hideLoading() {
+        binding.progressBar2.visibility = View.GONE
+        binding.overlay.visibility = View.GONE
+        binding.overlay.isClickable = false // Allow user interaction
     }
 }

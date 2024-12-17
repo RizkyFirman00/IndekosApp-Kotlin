@@ -13,8 +13,10 @@ import com.example.indekos.ui.admin.AdminActivity
 import com.example.indekos.ui.register.RegisterActivity
 import com.example.indekos.ui.splash.SplashScreenActivity
 import com.example.indekos.util.Preferences
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     override fun onBackPressed() {

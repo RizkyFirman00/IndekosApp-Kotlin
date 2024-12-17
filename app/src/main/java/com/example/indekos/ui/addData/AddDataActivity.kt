@@ -36,10 +36,11 @@ import com.example.indekos.util.createCustomTempFile
 import com.example.indekos.util.uriToFile
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.io.File
 
+@AndroidEntryPoint
 class AddDataActivity : AppCompatActivity() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient

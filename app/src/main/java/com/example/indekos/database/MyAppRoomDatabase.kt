@@ -1,7 +1,6 @@
 package com.example.indekos.database
 
 import android.content.Context
-import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -10,7 +9,7 @@ import com.example.indekos.model.Indekos
 import com.example.indekos.model.StringListConverter
 import com.example.indekos.model.Users
 
-@Database(entities = [Users::class, Indekos::class], version = 2)
+@Database(entities = [Users::class, Indekos::class], version = 2, exportSchema = false)
 @TypeConverters(StringListConverter::class)
 abstract class MyAppRoomDatabase : RoomDatabase() {
 

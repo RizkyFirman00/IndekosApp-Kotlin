@@ -1,144 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="24dp"
     tools:context=".ui.home.HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp">
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/poppins_medium"
-                        android:text="INDEKOS TERDEKAT"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_light"
-                        android:text="Mencari kosan yang nyaman..."
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                style="@style/Button_Style_purple"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="16dp">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_myLocation"
-                    style="@style/Button_Style_white_pure"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:drawableLeft="@drawable/baseline_location_on_24"
                     android:fontFamily="@font/poppins_medium"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:text="Lokasi Terdekat"
-                    android:textAllCaps="false"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/btn_otherLocation"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:text="INDEKOS TERDEKAT"
+                    android:textSize="24sp" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_otherLocation"
-                    style="@style/Button_Style_white_pure"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:drawableLeft="@drawable/baseline_location_on_24"
-                    android:fontFamily="@font/poppins_medium"
-                    android:padding="5dp"
-                    android:text="Cari Lokasi"
-                    android:textAllCaps="false"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/btn_myLocation"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:fontFamily="@font/poppins_light"
+                    android:text="Mencari kosan yang nyaman..."
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_kost"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/rv_kost" />
-        </LinearLayout>
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/Button_Style_purple"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/purple"
-            android:indeterminateTintMode="src_atop"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/tv_noData"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:elevation="10dp"-->
-<!--            android:fontFamily="@font/poppins_bold"-->
-<!--            android:gravity="center"-->
-<!--            android:text="D A T A \n K O S O N G"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="@color/purple"-->
-<!--            android:textSize="24sp"-->
-<!--            android:visibility="gone"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_myLocation"
+                style="@style/Button_Style_white_pure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:drawableLeft="@drawable/baseline_location_on_24"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="Lokasi Terdekat"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_otherLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_otherLocation"
+                style="@style/Button_Style_white_pure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:drawableLeft="@drawable/baseline_location_on_24"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="5dp"
+                android:text="Cari Lokasi"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_myLocation"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_kost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/rv_kost" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="8dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/purple"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout4" />
+
+    <FrameLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#8BFFFFFF"
+        android:visibility="gone"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
